@@ -1,8 +1,8 @@
 int driverPUL = 7;    // PUL- pin
 int driverDIR = 8;    // DIR- pin
-int t = 6;
+int t = 6000;
 int count = 0 , precount = 0 ;
-int val1 , val2;
+int b1 , b2;
 void setup() {
   pinMode (driverPUL, OUTPUT);
   pinMode (driverDIR, OUTPUT);
@@ -14,12 +14,12 @@ void setup() {
 void loop() {
   count = micros();
 
-  val1 = digitalRead(13);
-  val2 = digitalRead(12);
-   if (val1==0){
+  b1 = digitalRead(13);
+  b2 = digitalRead(12);
+   if (b1==0){
     fow();
    }
-   if (val2==0){
+   if (b2==0){
     back();
    }
 }
