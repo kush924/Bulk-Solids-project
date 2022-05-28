@@ -5,8 +5,8 @@
 #endif
 
 //loadcell_pins:
-const int HX711_dout = 4; //mcu > HX711 dout pin
-const int HX711_sck = 5; //mcu > HX711 sck pin
+const int HX711_dout = 2; //mcu > HX711 dout pin
+const int HX711_sck = 3; //mcu > HX711 sck pin
 
 //loadcell_HX711 constructor:
 HX711_ADC LoadCell(HX711_dout, HX711_sck);
@@ -17,13 +17,14 @@ unsigned long t = 0;
 //stepper_variables
 int driverPUL = 7;    // PUL- pin
 int driverDIR = 8;    // DIR- pin
-int ms = 6;
-int count = 0 , precount = 0 ;
+unsigned long int ms = 150;
+unsigned long int count = 0 , precount = 0 ;//precount not in use
 int b1 , b2;
+int p1=13 , p2=12;  //13 back , 12 fow
 
 void setup() {
  
-  Serial.begin(57600); delay(10);
+  Serial.begin(115200); delay(10);
   
 //loadcell_begin
   LoadCell.begin();
@@ -89,36 +90,34 @@ void loop() {
 //loadcell_end
 
 //stepper_begin
-  count = micros();
-
-  b1 = digitalRead(13);
-  b2 = digitalRead(12);
+  b1 = digitalRead(p1);
+  b2 = digitalRead(p2);
    if (b1==0){
-    fow();
+    back();
    }
    if (b2==0){
-    back();
+    fow();
    }
 //stepper_end
 }
 
 //stepper_functions
-void fow(){
+void back(){
     digitalWrite(driverDIR,LOW);
     moov();
 }
 
-void back(){
+void fow(){
     digitalWrite(driverDIR,HIGH);
     moov();
 
 }
 void moov(){
-    if(count - precount >= ms){
+    if((micros()-count)>=ms){
     digitalWrite(driverPUL,HIGH);
-    }
-    if(count - precount >= 2*ms){
+  }
+  if((micros()-count)>=(ms*2)){
     digitalWrite(driverPUL,LOW);
-    precount = count;
+  count=micros();
     }
 }

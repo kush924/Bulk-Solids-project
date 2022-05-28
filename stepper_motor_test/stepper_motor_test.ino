@@ -1,45 +1,49 @@
 int driverPUL = 7;    // PUL- pin
 int driverDIR = 8;    // DIR- pin
-int t = 6000;
-int count = 0 , precount = 0 ;
+unsigned long int ms = 150;
+unsigned long int count = 0 , precount = 0 ;
 int b1 , b2;
+int p1=13 , p2=12;
 void setup() {
   pinMode (driverPUL, OUTPUT);
   pinMode (driverDIR, OUTPUT);
   pinMode (13,INPUT_PULLUP);
   pinMode (12,INPUT_PULLUP);
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void loop() {
-  count = micros();
 
-  b1 = digitalRead(13);
-  b2 = digitalRead(12);
+  b1 = digitalRead(p1);
+  b2 = digitalRead(p2);
    if (b1==0){
-    fow();
-   }
-   if (b2==0){
     back();
    }
-}
-
-void fow(){
-    digitalWrite(driverDIR,LOW);
-    moov();
+   if (b2==0){
+    fow();
+   }
 }
 
 void back(){
+    digitalWrite(driverDIR,LOW);
+    Serial.println("fow");
+    moov();
+}
+
+void fow(){
     digitalWrite(driverDIR,HIGH);
+    Serial.println("back");
     moov();
 
 }
 void moov(){
-    if(count - precount >= t){
+  if((micros()-count)>=ms){
     digitalWrite(driverPUL,HIGH);
-    }
-    if(count - precount >= 2*t){
+    Serial.print("high");
+  }//delay(t);
+  if((micros()-count)>=(ms*2)){
     digitalWrite(driverPUL,LOW);
-    precount = count;
-    }
+    Serial.print("low");
+  count=micros();
+  }//delay(t);  
 }
