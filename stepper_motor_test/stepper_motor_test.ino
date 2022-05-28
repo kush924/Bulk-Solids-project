@@ -3,7 +3,8 @@ int driverDIR = 8;    // DIR- pin
 unsigned long int ms = 150;
 unsigned long int count = 0 , precount = 0 ;
 int b1 , b2;
-int p1=13 , p2=12;
+int p1=13 , p2=12;  //13 back , 12 fow
+
 void setup() {
   pinMode (driverPUL, OUTPUT);
   pinMode (driverDIR, OUTPUT);
