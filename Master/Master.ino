@@ -17,18 +17,18 @@ unsigned long t = 0;
 //stepper_variables
 int driverPUL = 7;    // PUL- pin
 int driverDIR = 8;    // DIR- pin
-unsigned long int ms = 2930;
+unsigned long int ms = 2930;  //speed change (frequency in microseconds)
 unsigned long int count = 0 , precount = 0 ;//precount not in use
 int b1 , b2;
 int p1=13 , p2=12;  //13 back , 12 fow
 
 void setup() {
  
-  Serial.begin(115200); delay(10);
-  
+  Serial.begin(9600); delay(10);
+ 
 //loadcell_begin
   LoadCell.begin();
-  //LoadCell.setReverseOutput(); //uncomment to turn a negative output value to positive
+  LoadCell.setReverseOutput(); //uncomment to turn a negative output value to positive
   float calibrationValue; // calibration value (see example file "Calibration.ino")
   calibrationValue = -87.74; // uncomment this if you want to set the calibration value in the sketch
 #if defined(ESP8266)|| defined(ESP32)
@@ -48,7 +48,7 @@ void setup() {
     Serial.println("CLEARDATA");
     Serial.print("LABEL,Date,Time,Timer,");
     Serial.println("Load Cell Value");
-  
+ 
   }
 //loadcell_end
 
@@ -64,7 +64,7 @@ void loop() {
 
 //loadcell_begin
   static boolean newDataReady = 0;
-  const int serialPrintInterval = 0; //increase value to slow down serial print activity
+  const int serialPrintInterval = 500; //increase value to slow down serial print activity
 
   // check for new data/start next conversion:
   if (LoadCell.update()) newDataReady = true;
