@@ -46,7 +46,9 @@ void setup() {
   else {
     LoadCell.setCalFactor(calibrationValue); // set calibration value (float)
     Serial.println("CLEARDATA");
-    Serial.print("LABEL,Date,Time,Timer,");
+    // Serial.print("LABEL,Date,Time,Timer,");
+    Serial.print("LABEL,Timer,");
+
     Serial.println("Load Cell Value");
  
   }
@@ -64,7 +66,7 @@ void loop() {
 
 //loadcell_begin
   static boolean newDataReady = 0;
-  const int serialPrintInterval = 500; //increase value to slow down serial print activity
+  const int serialPrintInterval = 10; //increase value to slow down serial print activity
 
   // check for new data/start next conversion:
   if (LoadCell.update()) newDataReady = true;
@@ -74,7 +76,9 @@ void loop() {
     if (millis() > t + serialPrintInterval) {
       float i = LoadCell.getData();
 //      Serial.print("Load_cell output val: ");
-      Serial.print("DATA,DATE,TIME,TIMER,");
+      // Serial.print("DATA,DATE,TIME,TIMER,");
+      Serial.print("DATA,TIMER,");
+
       Serial.println(i);
       newDataReady = 0;
       t = millis();
