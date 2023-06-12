@@ -1,6 +1,6 @@
 int driverPUL = 7;    // PUL- pin
 int driverDIR = 8;    // DIR- pin
-unsigned long int ms = 150;
+unsigned long int ms = 50;
 unsigned long int count = 0 , precount = 0 ;
 int b1 , b2;
 int p1=13 , p2=12;  //13 back , 12 fow
@@ -15,14 +15,15 @@ void setup() {
 
 void loop() {
 
-  b1 = digitalRead(p1);
-  b2 = digitalRead(p2);
-   if (b1==0){
-    back();
-   }
-   if (b2==0){
-    fow();
-   }
+  // b1 = digitalRead(p1);
+  // b2 = digitalRead(p2);
+  //  if (b1==0){
+  //   back();
+  //  }
+  //  if (b2==0){
+  //   fow();
+  //  }
+  fow();
 }
 
 void back(){

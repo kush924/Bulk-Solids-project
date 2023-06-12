@@ -17,7 +17,7 @@ unsigned long t = 0;
 //stepper_variables
 int driverPUL = 7;    // PUL- pin
 int driverDIR = 8;    // DIR- pin
-unsigned long int ms = 2930;  //speed change (frequency in microseconds)
+unsigned long int ms = 2930;  //speed change (frequency in microseconds) // 2930
 unsigned long int count = 0 , precount = 0 ;//precount not in use
 int b1 , b2;
 int p1=13 , p2=12;  //13 back , 12 fow
@@ -111,12 +111,14 @@ void loop() {
 
 //stepper_functions
 void back(){
-    digitalWrite(driverDIR,LOW);
+  ms =100;
+    digitalWrite(driverDIR,HIGH);
     moov();
 }
 
 void fow(){
-    digitalWrite(driverDIR,HIGH);
+  ms =2930;
+    digitalWrite(driverDIR,LOW);
     moov();
 
 }
